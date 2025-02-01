@@ -8,6 +8,9 @@ async function verifyCertificate() {
     try {
         console.log(`Fetching data from: ${API_URL}?certNumber=${certNumber}`);
         const response = await fetch(`${API_URL}?certNumber=${certNumber}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         console.log('Response data:', data);
 
