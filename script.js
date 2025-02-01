@@ -5,17 +5,12 @@ async function verifyCertificate() {
     const certNumber = document.getElementById('certNumber').value;
     const resultDiv = document.getElementById('result');
 
-    // Replace with your Google Sheets API URL
-    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/YOUR_SHEET_ID/values/Sheet1?key=YOUR_API_KEY`;
-
     try {
-        const response = await fetch(apiUrl);
+        const response = await fetch(`${API_URL}?certNumber=${certNumber}`);
         const data = await response.json();
 
-        const certificate = data.values.find(row => row[0] === certNumber);
-
-        if (certificate) {
-            resultDiv.innerHTML = `<p class="text-green-500">Certificate is valid. DOI: <a href="${certificate[1]}" class="text-blue-500">${certificate[1]}</a></p>`;
+        if (data.status === 'success') {
+            resultDiv.innerHTML = `<p class="text-green-500">Certificate is valid. DOI: <a href="${data.doi}" class="text-blue-500">${data.doi}</a></p>`;
         } else {
             resultDiv.innerHTML = `<p class="text-red-500">Certificate not found.</p>`;
         }
