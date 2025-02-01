@@ -2,34 +2,25 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwza5O-ULw9eL-3swupw-F9
 
 // Function to verify certificate
 async function verifyCertificate() {
-    let certNumber = document.getElementById("certNumber").value.trim();
-    if (!certNumber) {
-        alert("Please enter a certificate number.");
-        return;
-    }
+    const certNumber = document.getElementById('certNumber').value;
+    const resultDiv = document.getElementById('result');
 
-    let response = await fetch(API_URL);
-    let certificates = await response.json();
+    // Replace with your Google Sheets API URL
+    const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/YOUR_SHEET_ID/values/Sheet1?key=YOUR_API_KEY`;
 
-    let certificate = certificates.find(cert => cert.CertificateNumber === certNumber);
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-    if (certificate) {
-        document.getElementById("result").innerHTML = `
-            <h3 class="success">Certificate Found</h3>
-            <p><strong>Author Name:</strong> ${certificate.AuthorName}</p>
-            <p><strong>Affiliation:</strong> ${certificate.Affiliation}</p>
-            <p><strong>ORCiD ID:</strong> ${certificate.ORCiD}</p>
-            <p><strong>Paper Title:</strong> ${certificate.PaperTitle}</p>
-            <p><strong>DOI:</strong> <a href="https://doi.org/${certificate.DOI}" target="_blank">${certificate.DOI}</a></p>
-            <p><strong>Journal Volume:</strong> ${certificate.Volume}</p>
-            <p><strong>Number:</strong> ${certificate.Issue}</p>
-            <p><strong>Year:</strong> ${certificate.Year}</p>
-            <p><strong>Edition Name:</strong> ${certificate.Edition}</p>
-            <p><strong>Co-Author(s):</strong> ${certificate.CoAuthors}</p>
-            <p><strong>Entry By:</strong> ${certificate.EntryBy}</p>
-        `;
-    } else {
-        document.getElementById("result").innerHTML = `<p class="error">Certificate not found.</p>`;
+        const certificate = data.values.find(row => row[0] === certNumber);
+
+        if (certificate) {
+            resultDiv.innerHTML = `<p class="text-green-500">Certificate is valid. DOI: <a href="${certificate[1]}" class="text-blue-500">${certificate[1]}</a></p>`;
+        } else {
+            resultDiv.innerHTML = `<p class="text-red-500">Certificate not found.</p>`;
+        }
+    } catch (error) {
+        resultDiv.innerHTML = `<p class="text-red-500">Error verifying certificate.</p>`;
     }
 }
 
