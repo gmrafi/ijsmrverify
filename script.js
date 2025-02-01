@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwLJQwSPxnKtUMZ5_vJjnxBDh3WCE38UiMLQSwlWtRLhPFxGNgNsfb02TXTdY2SEGmg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzY2P-NzFf3n7LX_da74pr82c7dSDccwR4D5_fzHC3WvS0l30f9kHvE7W3yck8eGz2j/exec";
 
 // Function to verify certificate
 async function verifyCertificate() {
