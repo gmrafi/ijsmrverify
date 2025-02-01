@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwza5O-ULw9eL-3swupw-F9yZ13WECEUIiOtGjR5-dRuY-4qJln_dOCap5sZT727foJ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwLJQwSPxnKtUMZ5_vJjnxBDh3WCE38UiMLQSwlWtRLhPFxGNgNsfb02TXTdY2SEGmg/exec";
 
 // Function to verify certificate
 async function verifyCertificate() {
@@ -10,7 +10,20 @@ async function verifyCertificate() {
         const data = await response.json();
 
         if (data.status === 'success') {
-            resultDiv.innerHTML = `<p class="text-green-500">Certificate is valid. DOI: <a href="${data.doi}" class="text-blue-500">${data.doi}</a></p>`;
+            resultDiv.innerHTML = `
+                <p class="text-green-500">Certificate is valid.</p>
+                <p><strong>Author Name:</strong> ${data.authorName}</p>
+                <p><strong>Affiliation/Institution:</strong> ${data.affiliation}</p>
+                <p><strong>ORCiD ID:</strong> ${data.orcid}</p>
+                <p><strong>Publication Name:</strong> ${data.publicationName}</p>
+                <p><strong>DOI Number:</strong> <a href="${data.doi}" class="text-blue-500">${data.doi}</a></p>
+                <p><strong>Journal Volume:</strong> ${data.journalVolume}</p>
+                <p><strong>Journal Number:</strong> ${data.journalNumber}</p>
+                <p><strong>Year:</strong> ${data.year}</p>
+                <p><strong>Edition Name:</strong> ${data.editionName}</p>
+                <p><strong>Co-Author(s) Name:</strong> ${data.coAuthors}</p>
+                <p><strong>Entry By:</strong> ${data.entryBy}</p>
+            `;
         } else {
             resultDiv.innerHTML = `<p class="text-red-500">Certificate not found.</p>`;
         }
