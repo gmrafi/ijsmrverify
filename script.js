@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzY2P-NzFf3n7LX_da74pr82c7dSDccwR4D5_fzHC3WvS0l30f9kHvE7W3yck8eGz2j/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwptls7YB-AchiSIhjFgyony60xT3T8SKKG4JeYKDstzVxJuDr5yu_WUkOPSFDsqKk/exec";
 
 // Function to verify certificate
 async function verifyCertificate() {
@@ -6,8 +6,10 @@ async function verifyCertificate() {
     const resultDiv = document.getElementById('result');
 
     try {
+        console.log(`Fetching data from: ${API_URL}?certNumber=${certNumber}`);
         const response = await fetch(`${API_URL}?certNumber=${certNumber}`);
         const data = await response.json();
+        console.log('Response data:', data);
 
         if (data.status === 'success') {
             resultDiv.innerHTML = `
@@ -28,6 +30,7 @@ async function verifyCertificate() {
             resultDiv.innerHTML = `<p class="text-red-500">Certificate not found.</p>`;
         }
     } catch (error) {
+        console.error('Error:', error);
         resultDiv.innerHTML = `<p class="text-red-500">Error verifying certificate.</p>`;
     }
 }
