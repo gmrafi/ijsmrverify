@@ -15,43 +15,5 @@
         <div id="result" class="mt-4"></div>
     </div>
     <script src="script.js"></script>
-    <script>
-        function verifyCertificate() {
-            const certNumber = document.getElementById('certNumber').value;
-            const resultDiv = document.getElementById('result');
-            // Simulate an API call
-            const response = {
-                "status": "success",
-                "authorName": "John Doe",
-                "affiliation": "XYZ University",
-                "orcid": "0000-0001-2345-6789",
-                "publicationName": "Research on Sustainability",
-                "doi": "10.1234/abcd.2021.12345",
-                "journalVolume": "10",
-                "journalNumber": "2",
-                "year": "2021",
-                "editionName": "Special Edition",
-                "coAuthors": "Jane Smith",
-                "entryBy": "Admin"
-            };
-            if (response.status === 'success') {
-                resultDiv.innerHTML = `
-                    <p><strong>Author Name:</strong> ${response.authorName}</p>
-                    <p><strong>Affiliation:</strong> ${response.affiliation}</p>
-                    <p><strong>ORCID:</strong> ${response.orcid}</p>
-                    <p><strong>Publication Name:</strong> ${response.publicationName}</p>
-                    <p><strong>DOI:</strong> ${response.doi}</p>
-                    <p><strong>Journal Volume:</strong> ${response.journalVolume}</p>
-                    <p><strong>Journal Number:</strong> ${response.journalNumber}</p>
-                    <p><strong>Year:</strong> ${response.year}</p>
-                    <p><strong>Edition Name:</strong> ${response.editionName}</p>
-                    <p><strong>Co-Authors:</strong> ${response.coAuthors}</p>
-                    <p><strong>Entry By:</strong> ${response.entryBy}</p>
-                `;
-            } else {
-                resultDiv.innerHTML = '<p>Certificate not found.</p>';
-            }
-        }
-    </script>
 </body>
 </html>
